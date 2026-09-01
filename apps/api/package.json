@@ -1,0 +1,19 @@
+{
+  "name": "@org-cube-model-router-demo/api",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Workers API（次元・ポリシー・タスク・割当・リセット）。requirements.md 2章 F1〜F10 に対応する。ロジック本体はpackages/router-coreを呼び出すのみ。",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "vitest run",
+    "dev": "wrangler dev"
+  },
+  "dependencies": {
+    "hono": "^4.13.5"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260901.1",
+    "wrangler": "^4.124.0"
+  }
+}

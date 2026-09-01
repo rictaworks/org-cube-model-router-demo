@@ -1,0 +1,18 @@
+# apps/api/wrangler.toml
+# Cloudflare Workers API のバインディング設定（requirements.md 13.4節）。
+#
+# 方針:
+# * D1バインディングのみを持つ（外部サービス・KV・R2等は使用しない：requirements.md 1.4節）。
+# * スキーマは db/schema.sql を正とする（このファイルではmigrations管理を行わない）。
+#   デプロイ時のスキーマ適用は `wrangler d1 execute <database_name> --file=../../db/schema.sql`
+#   をClaude Desktop側のデプロイ手順で実行する（このリポジトリのCIはCDを持たない：CLAUDE.md）。
+# * database_id はプレースホルダーであり、実デプロイ時に実際のD1データベースIDへ置き換える。
+
+name = "org-cube-model-router-demo-api"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "org-cube-model-router-demo"
+database_id = "00000000-0000-0000-0000-000000000000"

@@ -1,0 +1,12 @@
+{
+  "name": "@org-cube-model-router-demo/router-core",
+  "version": "0.0.0",
+  "private": true,
+  "description": "ポリシー解決・候補評価・割当決定（純粋ロジック）。外部I/O（DB・HTTP）を持たない。",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "test": "vitest run"
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "models": [
+    {
+      "modelId": "aster-l",
+      "displayName": "Aster-L",
+      "provider": "Aster",
+      "deployment": "cloud",
+      "region": "US",
+      "trainingOptOut": true,
+      "zeroRetention": true,
+      "contextLimit": 200000,
+      "latencyClass": "standard",
+      "supportsImage": true,
+      "priceInPer1k": 2.00,
+      "priceOutPer1k": 8.00,
+      "capabilities": {
+        "summarize": 5,
+        "translate": 5,
+        "classify": 5,
+        "extract": 5,
+        "codegen": 5,
+        "dialogue": 5,
+        "reasoning": 5
+      }
+    },
+    {
+      "modelId": "aster-s",
+      "displayName": "Aster-S",
+      "provider": "Aster",
+      "deployment": "cloud",
+      "region": "US",
+      "trainingOptOut": true,
+      "zeroRetention": false,
+      "contextLimit": 128000,
+      "latencyClass": "fast",
+      "supportsImage": true,
+      "priceInPer1k": 0.30,
+      "priceOutPer1k": 1.20,
+      "capabilities": {
+        "summarize": 4,
+        "translate": 4,
+        "classify": 4,
+        "extract": 4,
+        "codegen": 3,
+        "dialogue": 4,
+        "reasoning": 3
+      }
+    },
+    {
+      "modelId": "boreal-eu",
+      "displayName": "Boreal-EU",
+      "provider": "Boreal",
+      "deployment": "cloud",
+      "region": "EU",
+      "trainingOptOut": true,
+      "zeroRetention": true,
+      "contextLimit": 128000,
+      "latencyClass": "standard",
+      "supportsImage": false,
+      "priceInPer1k": 1.00,
+      "priceOutPer1k": 4.00,
+      "capabilities": {
+        "summarize": 4,
+        "translate": 4,
+        "classify": 4,
+        "extract": 4,
+        "codegen": 4,
+        "dialogue": 4,
+        "reasoning": 4
+      }
+    },
+    {
+      "modelId": "cedar-jp",
+      "displayName": "Cedar-JP",
+      "provider": "Cedar",
+      "deployment": "cloud",
+      "region": "JP",
+      "trainingOptOut": true,
+      "zeroRetention": true,
+      "contextLimit": 32000,
+      "latencyClass": "fast",
+      "supportsImage": false,
+      "priceInPer1k": 0.50,
+      "priceOutPer1k": 2.00,
+      "capabilities": {
+        "summarize": 3,
+        "translate": 4,
+        "classify": 3,
+        "extract": 3,
+        "codegen": 2,
+        "dialogue": 3,
+        "reasoning": 2
+      }
+    },
+    {
+      "modelId": "delta-free",
+      "displayName": "Delta-Free",
+      "provider": "Delta",
+      "deployment": "cloud",
+      "region": "US",
+      "trainingOptOut": false,
+      "zeroRetention": false,
+      "contextLimit": 8000,
+      "latencyClass": "fast",
+      "supportsImage": false,
+      "priceInPer1k": 0.05,
+      "priceOutPer1k": 0.10,
+      "capabilities": {
+        "summarize": 2,
+        "translate": 2,
+        "classify": 3,
+        "extract": 2,
+        "codegen": 1,
+        "dialogue": 2,
+        "reasoning": 1
+      }
+    },
+    {
+      "modelId": "local-8b",
+      "displayName": "Local-8B",
+      "provider": "自社",
+      "deployment": "local",
+      "region": null,
+      "trainingOptOut": true,
+      "zeroRetention": true,
+      "contextLimit": 16000,
+      "latencyClass": "slow",
+      "supportsImage": false,
+      "priceInPer1k": 0.02,
+      "priceOutPer1k": 0.02,
+      "capabilities": {
+        "summarize": 3,
+        "translate": 2,
+        "classify": 3,
+        "extract": 3,
+        "codegen": 2,
+        "dialogue": 2,
+        "reasoning": 2
+      }
+    }
+  ]
+}

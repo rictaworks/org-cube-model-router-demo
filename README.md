@@ -23,6 +23,22 @@
 参照・操作できない（[requirements.md 13.3](./requirements.md#133-データと個人情報)）。
 利用者が明示的に行う操作（ログインフォームの入力等）は存在しない。
 
+## 実装済みの基盤
+
+画面・APIに先立ち、デモ版全体の基盤層を実装済みです。詳細は各READMEを参照してください。
+
+- `db/schema.sql`：D1（SQLite互換）スキーマ。`requirements.md` 6章の全12テーブル
+  （sessions・dimensions・dimension_values・policies・policy_selectors・tasks・
+  task_positions・model_catalog・model_overrides・assignments・
+  assignment_candidates・change_impacts）
+- `data/model_catalog.json`：モデルカタログ（架空の6モデルとタスク種別ごとの能力）
+- `data/sample_org.json`：サンプル組織（次元3・ポリシー6・タスク12件）
+- `packages/router-core/`：ポリシー解決・候補評価・割当決定を担う純粋ロジック
+  （関数A〜F）。外部I/O（DB・HTTP）を一切持たず、実際のAIモデル呼び出しも行いません。
+  詳細は [packages/router-core/README.md](./packages/router-core/README.md) を参照
+
+これらは内部ロジック・マスタデータであり、来場者が操作する画面・APIはまだ実装していません。
+
 ## ページ一覧
 
 実装が完了したページから、実装したPRの中で本表に追記する。

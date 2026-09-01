@@ -1,0 +1,11 @@
+{
+  "name": "router-core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ポリシー解決・候補評価・割当決定（純粋ロジック）",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  }
+}

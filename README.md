@@ -52,10 +52,36 @@
 
 実装が完了したAPIから、実装したPRの中で本表に追記する。
 `README.md` には未実装のAPIを記載しない（[CLAUDE.md](./CLAUDE.md) 参照）。
+詳細は [apps/api/README.md](./apps/api/README.md) を参照。
 
 | タイトル | エンドポイントURL | 仕様（SPEC/） |
 |---|---|---|
-| （実装され次第、当該PRで追記） | — | — |
+| F1 次元一覧取得 | `GET /api/dimensions` | requirements.md 4.1節 |
+| F1 次元追加 | `POST /api/dimensions` | requirements.md 4.1節 |
+| F1 次元改名 | `PATCH /api/dimensions/:id` | requirements.md 4.1節 |
+| F1 次元削除の影響プレビュー | `GET /api/dimensions/:id/impact` | requirements.md 4.1節 |
+| F1 次元削除 | `DELETE /api/dimensions/:id` | requirements.md 4.1節 |
+| F1 値追加 | `POST /api/dimensions/:id/values` | requirements.md 4.1節 |
+| F1 値改名 | `PATCH /api/dimensions/:id/values/:valueId` | requirements.md 4.1節 |
+| F1 値削除 | `DELETE /api/dimensions/:id/values/:valueId` | requirements.md 4.1節 |
+| F2 ポリシー一覧取得 | `GET /api/policies` | requirements.md 3.3節 |
+| F2 ポリシー作成 | `POST /api/policies` | requirements.md 3.3節 |
+| F2 ポリシー更新 | `PATCH /api/policies/:id` | requirements.md 3.3節 |
+| F2 ポリシー削除 | `DELETE /api/policies/:id` | requirements.md 3.3節 |
+| F3 タスク一覧取得 | `GET /api/tasks` | requirements.md 3.5節 |
+| F3 タスク詳細取得 | `GET /api/tasks/:id` | requirements.md 3.5節 |
+| F3 タスク登録 | `POST /api/tasks` | requirements.md 3.5節 |
+| F3 タスク更新 | `PATCH /api/tasks/:id` | requirements.md 3.5節 |
+| F3 タスク削除 | `DELETE /api/tasks/:id` | requirements.md 3.5節 |
+| F4 モデルカタログ閲覧 | `GET /api/models` | requirements.md 3.4節 |
+| F4 提供停止切替 | `PATCH /api/models/:modelId` | requirements.md 3.4節 |
+| F5 割当結果一覧 | `GET /api/assignments` | requirements.md 4.5節 |
+| F6 根拠表示 | `GET /api/tasks/:id/assignment` | requirements.md 4.3・4.4節 |
+| F7 固定割当 | `POST /api/tasks/:id/pin` | requirements.md 4.7節 |
+| F7 固定解除 | `DELETE /api/tasks/:id/pin` | requirements.md 4.7節 |
+| F8 変更影響取得 | `GET /api/change-impacts` | requirements.md 4.6節 |
+| F9 組織ビュー | `GET /api/org-view` | requirements.md 13.2節 |
+| F10 サンプル読込 | `POST /api/sample/load` | requirements.md 5.3節 |
 
 ## 開発に参加する
 

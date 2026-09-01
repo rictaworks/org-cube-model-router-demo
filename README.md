@@ -44,9 +44,17 @@
 実装が完了したページから、実装したPRの中で本表に追記する。
 `README.md` には未実装のページを記載しない（[CLAUDE.md](./CLAUDE.md) 参照）。
 
-| ページ名 | URL |
-|---|---|
-| （実装され次第、当該PRで追記） | — |
+| ページ名 | URL | 仕様（SPEC/） |
+|---|---|---|
+| ホーム（サンプル読込導線） | `/` | requirements.md 2章 F10・5.3節 |
+| 次元管理 | `/dimensions` | requirements.md 2章 F1・4.1節 |
+| ポリシー管理 | `/policies` | requirements.md 2章 F2・3.3節 |
+| タスク管理 | `/tasks` | requirements.md 2章 F3・3.5節 |
+| モデルカタログ | `/models` | requirements.md 2章 F4・3.4節 |
+| 割当結果一覧 | `/assignments` | requirements.md 2章 F5・4.5節・13.2節 |
+| 割当・根拠（固定割当を含む） | `/assignments/:taskId` | requirements.md 2章 F6・F7・4.3〜4.4・4.7・13.1節 |
+| 変更影響 | `/change-impacts` | requirements.md 2章 F8・4.6節 |
+| 組織ビュー | `/org-view` | requirements.md 2章 F9・13.2節 |
 
 ## API一覧
 

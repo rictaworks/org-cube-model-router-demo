@@ -16,6 +16,19 @@ config/master.key
 # PRIVATEリポジトリ：上の行をコメントアウトし、.claude/を丸ごとコミットする
 # （露出リスクが無く、クローン直後からsettings.json・agents・workflowsが動く。x-follower-gateで実施済み）
 
+# --- 例外：CI（.github/workflows/pr-checks.yml）が参照するファイルのみ公開する ---
+# 社内運用ノウハウ系（Manager.md・auto-optimizer.md・director等9agent・settings.json・hooks）は
+# 非公開のまま。reviewer/pr-checkerと、両者が根拠にするチェックリストのみ、
+# マージ前チェックの基準を透明化する意図で公開する。
+!.claude/agents
+.claude/agents/*
+!.claude/agents/reviewer.md
+!.claude/agents/pr-checker.md
+!.claude/QC10.md
+!.claude/OWASP10.md
+!.claude/CC.md
+!.claude/TEST-HARNESS-SAFETY.md
+
 # --- ノウハウ・非公開ディレクトリ（公開/非公開に関わらず常に除外） ---
 CLIENT/
 DEBUG/

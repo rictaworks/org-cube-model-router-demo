@@ -1,0 +1,35 @@
+name: CI
+
+# lint・typecheck・test（Vitest）を必須チェックとして実行する。
+# CD（Cloudflare Pages/Workers への実デプロイ）はここに含めない（Claude Desktop側の責務）。
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    # TEST-HARNESS-SAFETY.md TH5（CI側の二重化）：暴走時にジョブが早期に落ちるようにする
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test (Vitest)
+        run: npm run test

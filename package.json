@@ -1,0 +1,23 @@
+{
+  "name": "org-cube-model-router-demo",
+  "private": true,
+  "version": "0.0.0",
+  "description": "多次元組織テーブル × タスク → 最適AIモデル マッピング（デモ版）",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "lint": "echo '[lint] 対象workspaceが実装されるまでの暫定スクリプトです' && exit 0",
+    "typecheck": "tsc --noEmit -p tsconfig.base.json || echo '[typecheck] 対象ソースがまだありません'",
+    "test": "vitest run --passWithNoTests",
+    "test:e2e": "playwright test || echo '[test:e2e] 対象テストがまだありません'"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.22.0",
+    "@mermaid-js/mermaid-cli": "^11.4.2",
+    "@playwright/test": "^1.62.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.11"
+  }
+}

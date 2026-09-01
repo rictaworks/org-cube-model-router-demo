@@ -1,0 +1,43 @@
+name: PR Checks
+
+# マージ前に reviewer / pr-checker agent を必須ステータスチェックとして実行する（CLAUDE.md）。
+# ANTHROPIC_API_KEY を Secrets に設定する必要がある（未設定の間はこのワークフローは失敗する）。
+#
+# 使用している anthropics/claude-code-action の正確なバージョン・入力パラメータは
+# 導入時に https://github.com/anthropics/claude-code-action の README で最新仕様を確認し、
+# 必要に応じて調整すること（本ファイルは骨組みであり、pin するバージョンは要確認）。
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  reviewer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run reviewer agent (security / code review)
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt_file: .claude/agents/reviewer.md
+
+  pr-checker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: reviewer
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run pr-checker agent (merge eligibility)
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt_file: .claude/agents/pr-checker.md

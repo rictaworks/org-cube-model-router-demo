@@ -143,7 +143,7 @@ export interface EffectivePolicy {
   readonly contributors: ConstraintContributors;
   readonly weights: Weights;
   readonly appliedPolicyIds: readonly PolicyId[];
-  readonly warnings: readonly ReasonCode[];
+  readonly warnings: readonly WarningReasonCode[];
 }
 
 // --- モデルカタログ（3.4節・5章） ---

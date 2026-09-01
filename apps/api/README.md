@@ -1,63 +1,63 @@
 # apps/api
 
-Workers API（次元・ポリシー・タスク・割当・リセット）。requirements.md 2章の機能一覧
-F1〜F10と、共通基盤（セッション発行・D1リポジトリ・日次リセット・ハニーポット）を実装済み。
+Workers API（次元・ポリシー・タスク・割当・リセット）です。requirements.md 2章の機能一覧
+F1〜F10と、共通基盤（セッション発行・D1リポジトリ・日次リセット・ハニーポット）を実装済みです。
 
-- 実装コードは `apps/api/src/` 配下に置く（テストも同ディレクトリに `*.test.ts` として同居する。
-  `packages/router-core` の既存の配置方針に合わせている）
+- 実装コードは `apps/api/src/` 配下に置きます（テストも同ディレクトリに `*.test.ts` として同居させます。
+  `packages/router-core` の既存の配置方針に合わせています）
 - ロジック本体（ポリシー解決・候補評価・割当決定）は
   [packages/router-core](../../packages/router-core/README.md) の純粋関数（関数A〜F）を
-  そのまま呼び出す。`apps/api` はHTTPハンドラとD1永続化に徹し、判定ロジックを
-  再実装しない
-- 実装したエンドポイントは、実装したPRの中で [README.md](../../README.md) のAPI一覧に追記する
+  そのまま呼び出します。`apps/api` はHTTPハンドラとD1永続化に徹し、判定ロジックを
+  再実装しません
+- 実装したエンドポイントは、実装したPRの中で [README.md](../../README.md) のAPI一覧に追記します
 
 ## 技術構成
 
 - ルーティング：[Hono](https://hono.dev/)（Cloudflare Workers向けの軽量・実績のある
-  ルーティングライブラリ）。手書きのfetchハンドラで賄うには、Cookie処理・パスパラメータ・
-  サブルータ構成が10エンドポイント超に渡り煩雑になるため採用した（DOCS/DP.mdの
-  YAGNI/車輪の再発明回避を踏まえ、機能を絞った薄いライブラリを選定）
-- DB：Cloudflare D1（`db/schema.sql` を正とする。このリポジトリでは変更しない）
+  ルーティングライブラリ）を使います。手書きのfetchハンドラで賄うには、Cookie処理・パスパラメータ・
+  サブルータ構成が10エンドポイント超に渡り煩雑になるため採用しました（DOCS/DP.mdの
+  YAGNI/車輪の再発明回避を踏まえ、機能を絞った薄いライブラリを選定しています）
+- DB：Cloudflare D1を使います（`db/schema.sql` を正とし、このリポジトリでは変更しません）
 - テスト：`@cloudflare/vitest-pool-workers`（Vitest 4系対応の `cloudflareTest` プラグイン）で
-  Workers環境（Miniflare上のD1を含む）を直接テストする
+  Workers環境（Miniflare上のD1を含む）を直接テストします
 
 ## セッション（requirements.md 1.4・13.3節）
 
 - 初回アクセス時に `crypto.randomUUID()` で不透明なセッションIDを発行し、Cookie
-  （`session_id`、httpOnly・SameSite=Lax）で保持する
+  （`session_id`、httpOnly・SameSite=Lax）で保持します
 - `model_catalog` を除く全テーブルの読み書きは、常にリクエストのセッションIDで
-  絞り込む（`apps/api/src/repositories/*.ts`）。他セッションのデータには一切
-  アクセスしない
+  絞り込みます（`apps/api/src/repositories/*.ts`）。他セッションのデータには一切
+  アクセスしません
 
 ## 日次リセット（requirements.md 4.8節）
 
 - リクエスト受付時（`apps/api/src/middleware.ts` の `sessionMiddleware`）に、
   セッションの前回リセット日時と「直近のJST 03:00」を比較し
   （`apps/api/src/dailyReset.ts`）、リセットが必要であればセッションの全データ
-  （`model_catalog` を除く）を削除してから処理を続行する
-- `model_catalog` はマスタデータであり、日次リセットの対象外とする
+  （`model_catalog` を除く）を削除してから処理を続行します
+- `model_catalog` はマスタデータであり、日次リセットの対象外とします
   （`apps/api/src/repositories/sessionRepository.ts` の `deleteAllSessionData`）
 
 ## ハニーポット（requirements.md 13.4節）
 
 - `HONEYPOT_FIELD_NAME`（`apps/api/src/config.ts`）という名前のフィールドを、
   POST/PUT/PATCHのJSON本文が持ち、かつ値が入っている場合はリクエストを400で
-  即座に破棄する（`apps/api/src/middleware.ts` の `honeypotMiddleware`）
-- 判定理由は握りつぶさず `console.error` にログを残す。クライアントへは
-  ハニーポットの存在を明かさない汎用メッセージのみを返す
+  即座に破棄します（`apps/api/src/middleware.ts` の `honeypotMiddleware`）
+- 判定理由は握りつぶさず `console.error` にログを残します。クライアントへは
+  ハニーポットの存在を明かさない汎用メッセージのみを返します
 
 ## モデルカタログの投入
 
-`model_catalog` テーブルはマスタデータであり日次リセットの対象外だが、
-D1のテスト環境やデプロイ直後は空の状態から始まる。リクエスト受付時のミドルウェア
+`model_catalog` テーブルはマスタデータであり日次リセットの対象外ですが、
+D1のテスト環境やデプロイ直後は空の状態から始まります。リクエスト受付時のミドルウェア
 （`catalogSeedMiddleware`）が `model_catalog` の件数を確認し、空であれば
-`data/model_catalog.json` から冪等に投入する（`apps/api/src/repositories/catalogRepository.ts`
+`data/model_catalog.json` から冪等に投入します（`apps/api/src/repositories/catalogRepository.ts`
 の `ensureCatalogSeeded`）。
 
 ## エンドポイント一覧
 
-すべて `/api` 配下。リクエスト・レスポンスはJSON。認証は持たない
-（セッションIDはCookieで自動的に授受される）。
+すべて `/api` 配下です。リクエスト・レスポンスはJSONで、認証は持ちません
+（セッションIDはCookieで自動的に授受されます）。
 
 | 機能 | メソッド・パス | 概要 |
 |---|---|---|
@@ -98,4 +98,4 @@ npm run test
 
 ルートの `vitest.config.ts`（`test.projects`）が `packages/router-core`（Node環境の
 通常テスト）と `apps/api`（`@cloudflare/vitest-pool-workers` によるWorkers環境の
-直接テスト）の両方を束ねている。
+直接テスト）の両方を束ねています。

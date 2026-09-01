@@ -100,3 +100,43 @@ service-manager（加えてフック・CIから呼ぶ reviewer, pr-checker）。
 ## 連絡先
 
 - 連絡先に個人名は使用しない。メールアドレスは `info@rictaworks.jp` を使用する。
+
+## 文体・言語
+
+- 本事業はB2Bである。コンテンツ（UI文言・README・PR説明文等）は**ですます調**で書く。
+  **である調は禁止**。
+- 日本語版のみ開発する。多言語対応は行わない。
+
+## 禁止API
+
+- ネイティブの `alert()` / `confirm()` / `prompt()` はプロジェクト全体で使用禁止。
+  UIフィードバックはコンポーネント（モーダル・トースト等）で実装する。
+  `eslint` の `no-alert` ルールで機械チェックする運用とする（導入は別issue）。
+
+## 環境判定
+
+- 本番／開発の環境を判定するロジックを必ず実装し、分岐可能にする。
+- 開発環境はテスト可能にするため、認証済み相当に分岐する。
+  （本デモは認証を持たないため直接の適用対象はないが、認証機能を持つ実装では踏襲する）
+
+## 自社共通開発方針（デフォルト）と本プロジェクトでの適用
+
+以下は自社（rictaworks）の開発案件に共通するデフォルト方針である。本プロジェクトは
+`requirements.md` のデモ版制約（外部API禁止・認証なし・Cloudflare一本化）を優先するため、
+多くの項目が適用除外になる。矛盾する場合は常に `requirements.md` が優先する。
+
+| 項目 | 自社デフォルト | 本プロジェクトでの扱い |
+|---|---|---|
+| アーキテクチャ | 規模に応じてマイクロサービス／MVC／API Gateway／メッセージングを意識する | 小規模・単一Workersのため非適用（YAGNI） |
+| 標準スタック | Next + Rails + PostgreSQL。AI/解析/画像加工はFastAPI、高速並列/リアルタイム通信はGin | `requirements.md` 1.3節によりCloudflare Workers/Pages + D1に一本化、Railway不使用 |
+| デプロイ先 | フロントは無料Vercel、バックエンド/管理画面は無料Railway | Cloudflare Pages/Workersのみ |
+| 認証 | MVPはGoogleログイン、製品はXログイン（`rictaworks/x-follower-gate` で@rictaworksフォロワーのみ許可）。一般消費者が実際に使える手段でログインし、開発者向け近道を本番UIに露出しない | `requirements.md` 1.4・13.3節により認証を持たないため非適用 |
+| AI API | 組み込む場合は gemini・nano banana・veo を使用し、利用可能なモデルから最安値を選定する | 外部API禁止（`requirements.md` 1.3・1.4節）のため非適用 |
+| コンテンツ制作 | 画像はAI生成、プロのライティングは `writer` agentが担当。構成・コーディング・レビューはClaude、コンテンツライティングはCodex、ファクトチェックはGemini（指定がある場合を除く） | UI文言中心。体制は `.claude/agents/writer.md` に反映 |
+| ライブラリ／OSS／SaaS選定 | メンテナンスコストとセキュリティの観点から安全なものを選び、車輪の再発明を避けてオリジナルコードを少なく保つ | 本プロジェクトにも適用（`DOCS/DP.md` の既存原則の延長） |
+| デプロイ実行 | Webはヘッドレスでデプロイを実行し、バックエンドのドメインは隠蔽する。デスクトップ/スマホはビルドから先、ESP32は焼き込みから先はClaude Desktop側で行う | Webのみ。デプロイ実行はClaude Desktop側という既存方針と整合 |
+| ドメイン | 原則 `rictaworks.jp` のサブドメイン | `ENV/PRODUCTION.md`（非公開）に反映 |
+| 動画成果物 | ナレーション/アニメーション同期はカット単位。voiceは動画のトーンに応じて選定し、選定理由を仕様書に明記する | 動画要素なしのため非適用。動画機能追加時のみ適用（`MM/` 参照ルールと併せて適用） |
+
+バージョニング規則・リリースフロー・ライティング体制の詳細は
+[docs/VERSIONING.md](./docs/VERSIONING.md)・[CONTRIBUTING.md](./CONTRIBUTING.md) を参照。

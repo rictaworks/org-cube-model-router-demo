@@ -7,6 +7,7 @@
  * apps/api/README.md の方針どおり、
  * - packages/router-core：Node環境の通常テスト（外部I/Oを持たない純粋ロジック）
  * - apps/api：@cloudflare/vitest-pool-workers によるWorkers環境の直接テスト
+ * - apps/web：jsdom環境によるコンポーネントテスト（Testing Library）
  * を1つの `npm run test` から実行する。
  */
 import { defineConfig } from 'vitest/config';
@@ -23,6 +24,7 @@ export default defineConfig({
         },
       },
       'apps/api/vitest.config.ts',
+      'apps/web/vitest.config.ts',
     ],
   },
 });

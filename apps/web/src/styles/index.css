@@ -1,0 +1,439 @@
+/* apps/web 全体のスタイル。QC04（モバイル対応）・QC07（アクセシビリティ）を意識し、
+   相対単位・十分なコントラスト・キーボード操作可能なフォーカスリングを用いる。 */
+
+:root {
+  color-scheme: light;
+  --color-bg: #f6f7fb;
+  --color-surface: #ffffff;
+  --color-border: #d7dbe6;
+  --color-text: #1f2430;
+  --color-text-muted: #5b6270;
+  --color-primary: #2454ff;
+  --color-primary-contrast: #ffffff;
+  --color-danger: #c62839;
+  --color-warning-bg: #fff4e5;
+  --color-warning-border: #f0b429;
+  --color-success: #1b7f4f;
+  --color-error: #c62839;
+  --radius: 0.5rem;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 1rem;
+  --spacing-4: 1.5rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--color-primary);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--spacing-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.app-header-title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.app-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.app-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--color-text-muted);
+}
+
+.app-nav-link.active {
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+}
+
+.app-content {
+  flex: 1;
+  padding: var(--spacing-4);
+  max-width: 72rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.page h1 {
+  margin-top: 0;
+}
+
+.panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--spacing-3);
+  margin-bottom: var(--spacing-3);
+}
+
+.dimension-card-header,
+.row-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.dimension-card-header {
+  justify-content: space-between;
+}
+
+.inline-form,
+.inline-edit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.honeypot-field {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.privacy-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+  background: var(--color-warning-bg);
+  border: 1px solid var(--color-warning-border);
+  border-radius: var(--radius);
+  padding: var(--spacing-2);
+  color: var(--color-text);
+}
+
+.value-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--spacing-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.value-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-1) var(--spacing-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.icon-button {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--spacing-1);
+  cursor: pointer;
+  color: var(--color-text);
+}
+
+.icon-button-danger {
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+.button-primary,
+.button-secondary,
+.button-danger {
+  border-radius: var(--radius);
+  padding: var(--spacing-2) var(--spacing-3);
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  font-size: 1rem;
+}
+
+.button-primary {
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+}
+
+.button-secondary {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.button-danger {
+  background: var(--color-danger);
+  color: #fff;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--spacing-2);
+  text-align: left;
+  vertical-align: top;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.row-highlighted,
+.row-unavailable {
+  background: var(--color-warning-bg);
+}
+
+.row-focused {
+  outline: 2px solid var(--color-primary);
+}
+
+.row-highlight-note {
+  margin: var(--spacing-1) 0 0;
+  color: var(--color-error);
+  font-size: 0.875rem;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: #e6ebff;
+  color: var(--color-text);
+  font-size: 0.875rem;
+}
+
+.status-badge.status-highlighted {
+  background: #fde3e3;
+  color: var(--color-danger);
+  font-weight: 700;
+}
+
+.empty-state,
+.hint {
+  color: var(--color-text-muted);
+}
+
+.async-state {
+  padding: var(--spacing-3);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.async-error {
+  color: var(--color-error);
+}
+
+.app-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 18, 26, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-3);
+  z-index: 100;
+}
+
+.app-modal {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  max-width: 40rem;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: var(--spacing-3);
+}
+
+.app-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.confirm-dialog-actions,
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-2);
+  margin-top: var(--spacing-3);
+}
+
+.policy-form,
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.selector-editor-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-1);
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.toast-container {
+  position: fixed;
+  bottom: var(--spacing-3);
+  right: var(--spacing-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  z-index: 200;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  min-width: 16rem;
+}
+
+.toast-success {
+  border-color: var(--color-success);
+}
+
+.toast-error {
+  border-color: var(--color-error);
+}
+
+.toast-message {
+  flex: 1;
+}
+
+.toast-dismiss {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.pin-violation-banner {
+  background: var(--color-warning-bg);
+  border: 1px solid var(--color-danger);
+  border-radius: var(--radius);
+  padding: var(--spacing-3);
+}
+
+.reason-code-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.reason-code-item {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--spacing-2);
+}
+
+.reason-code {
+  background: #eef1f8;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.25rem;
+  margin-right: var(--spacing-2);
+}
+
+.reason-code-contributors-note {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.cell-highlight {
+  color: var(--color-danger);
+  font-weight: 700;
+}
+
+.model-breakdown {
+  margin: var(--spacing-1) 0 0;
+  padding-left: var(--spacing-3);
+}
+
+@media (max-width: 640px) {
+  .app-content {
+    padding: var(--spacing-2);
+  }
+
+  .data-table,
+  .data-table thead,
+  .data-table tbody,
+  .data-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .data-table th,
+  .data-table td {
+    display: block;
+  }
+}

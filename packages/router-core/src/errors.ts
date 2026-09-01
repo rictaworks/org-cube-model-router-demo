@@ -79,3 +79,10 @@ export class UnknownModelError extends RouterCoreError {
     super(ERROR_MESSAGES.unknownModelInEvaluationRows(modelId));
   }
 }
+
+/** 表示順変更の対象集合が現在の次元・値の一覧と一致しない。 */
+export class InvalidOrderError extends RouterCoreError {
+  constructor(public readonly kind: NamedEntityKind) {
+    super(ERROR_MESSAGES.invalidOrder(kind));
+  }
+}

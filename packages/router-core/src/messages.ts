@@ -52,4 +52,11 @@ export const ERROR_MESSAGES = Object.freeze({
     `モデルID「${modelId}」の評価行が見つかりません。`,
   pinnedModelRowMissing: (modelId: string): string =>
     `固定モデル「${modelId}」の評価行が見つかりません。関数Cの評価結果を先に計算してください。`,
+  invalidOrder: (kind: NamedEntityKind): string =>
+    `並び替え対象の${NAMED_ENTITY_LABEL[kind]}の集合が現在の一覧と一致しません。`,
+});
+
+/** ポリシーを無効化する際の定型理由（4.1節手順4）。 */
+export const POLICY_DISABLED_REASONS = Object.freeze({
+  dimensionDeleted: '次元削除',
 });

@@ -1,0 +1,203 @@
+{
+  "dimensions": [
+    {
+      "name": "部門",
+      "displayOrder": 1,
+      "values": ["営業", "開発", "法務", "人事"]
+    },
+    {
+      "name": "拠点",
+      "displayOrder": 2,
+      "values": ["東京", "フランクフルト", "ニューヨーク"]
+    },
+    {
+      "name": "職種区分",
+      "displayOrder": 3,
+      "values": ["一般", "管理職"]
+    }
+  ],
+  "policies": [
+    {
+      "name": "全体方針",
+      "priority": 0,
+      "selector": {},
+      "weights": { "quality": 0.5, "cost": 0.3, "latency": 0.2 }
+    },
+    {
+      "name": "フランクフルト拠点はEU限定",
+      "priority": 0,
+      "selector": { "拠点": "フランクフルト" },
+      "constraints": { "allowedRegions": ["EU"] }
+    },
+    {
+      "name": "人事部門はローカル必須",
+      "priority": 0,
+      "selector": { "部門": "人事" },
+      "constraints": { "requireLocal": true }
+    },
+    {
+      "name": "開発部門は品質重視",
+      "priority": 0,
+      "selector": { "部門": "開発" },
+      "weights": { "quality": 0.7 }
+    },
+    {
+      "name": "法務部門のコスト制約",
+      "priority": 0,
+      "selector": { "部門": "法務" },
+      "constraints": { "bannedModels": ["delta-free"], "maxCostPerRun": 50 }
+    },
+    {
+      "name": "管理職はコスト重視",
+      "priority": 0,
+      "selector": { "職種区分": "管理職" },
+      "weights": { "cost": 0.1 }
+    }
+  ],
+  "tasks": [
+    {
+      "name": "問い合わせ内容の一次対応",
+      "taskKind": "dialogue",
+      "difficulty": "low",
+      "sensitivity": "public",
+      "inputTokens": 800,
+      "outputTokens": 400,
+      "latencyNeed": "interactive",
+      "needsImage": false,
+      "monthlyRuns": 5000,
+      "position": { "部門": "営業", "拠点": "東京", "職種区分": "一般" }
+    },
+    {
+      "name": "現地契約書類の翻訳",
+      "taskKind": "translate",
+      "difficulty": "medium",
+      "sensitivity": "internal",
+      "inputTokens": 3000,
+      "outputTokens": 3000,
+      "latencyNeed": "batch",
+      "needsImage": false,
+      "monthlyRuns": 200,
+      "position": { "部門": "営業", "拠点": "フランクフルト", "職種区分": "管理職" }
+    },
+    {
+      "name": "展示会資料からの項目抽出",
+      "taskKind": "extract",
+      "difficulty": "medium",
+      "sensitivity": "public",
+      "inputTokens": 5000,
+      "outputTokens": 1000,
+      "latencyNeed": "interactive",
+      "needsImage": true,
+      "monthlyRuns": 100,
+      "position": { "部門": "営業", "拠点": "ニューヨーク", "職種区分": "一般" }
+    },
+    {
+      "name": "社内バッチ処理の実装補助",
+      "taskKind": "codegen",
+      "difficulty": "high",
+      "sensitivity": "internal",
+      "inputTokens": 4000,
+      "outputTokens": 2000,
+      "latencyNeed": "batch",
+      "needsImage": false,
+      "monthlyRuns": 300,
+      "position": { "部門": "開発", "拠点": "東京", "職種区分": "一般" }
+    },
+    {
+      "name": "EUリージョン向け機能のコード生成",
+      "taskKind": "codegen",
+      "difficulty": "high",
+      "sensitivity": "confidential",
+      "inputTokens": 4000,
+      "outputTokens": 2000,
+      "latencyNeed": "interactive",
+      "needsImage": false,
+      "monthlyRuns": 150,
+      "position": { "部門": "開発", "拠点": "フランクフルト", "職種区分": "管理職" }
+    },
+    {
+      "name": "障害原因の推論支援",
+      "taskKind": "reasoning",
+      "difficulty": "medium",
+      "sensitivity": "public",
+      "inputTokens": 2000,
+      "outputTokens": 800,
+      "latencyNeed": "batch",
+      "needsImage": false,
+      "monthlyRuns": 120,
+      "position": { "部門": "開発", "拠点": "ニューヨーク", "職種区分": "一般" }
+    },
+    {
+      "name": "契約書リスク分類",
+      "taskKind": "classify",
+      "difficulty": "medium",
+      "sensitivity": "confidential",
+      "inputTokens": 6000,
+      "outputTokens": 500,
+      "latencyNeed": "interactive",
+      "needsImage": false,
+      "monthlyRuns": 80,
+      "position": { "部門": "法務", "拠点": "東京", "職種区分": "管理職" }
+    },
+    {
+      "name": "個人データ関連条項の抽出",
+      "taskKind": "extract",
+      "difficulty": "low",
+      "sensitivity": "personal",
+      "inputTokens": 3000,
+      "outputTokens": 500,
+      "latencyNeed": "batch",
+      "needsImage": false,
+      "monthlyRuns": 60,
+      "position": { "部門": "法務", "拠点": "フランクフルト", "職種区分": "一般" }
+    },
+    {
+      "name": "海外規制動向の要約",
+      "taskKind": "summarize",
+      "difficulty": "medium",
+      "sensitivity": "internal",
+      "inputTokens": 8000,
+      "outputTokens": 1000,
+      "latencyNeed": "interactive",
+      "needsImage": false,
+      "monthlyRuns": 90,
+      "position": { "部門": "法務", "拠点": "ニューヨーク", "職種区分": "一般" }
+    },
+    {
+      "name": "人事評価コメントの要約",
+      "taskKind": "summarize",
+      "difficulty": "high",
+      "sensitivity": "personal",
+      "inputTokens": 2000,
+      "outputTokens": 500,
+      "latencyNeed": "batch",
+      "needsImage": false,
+      "monthlyRuns": 40,
+      "position": { "部門": "人事", "拠点": "東京", "職種区分": "管理職" }
+    },
+    {
+      "name": "応募者一次問い合わせ対応",
+      "taskKind": "dialogue",
+      "difficulty": "low",
+      "sensitivity": "internal",
+      "inputTokens": 500,
+      "outputTokens": 300,
+      "latencyNeed": "interactive",
+      "needsImage": false,
+      "monthlyRuns": 200,
+      "position": { "部門": "人事", "拠点": "フランクフルト", "職種区分": "一般" }
+    },
+    {
+      "name": "採用サイトの画像付きバナー生成コード",
+      "taskKind": "codegen",
+      "difficulty": "medium",
+      "sensitivity": "public",
+      "inputTokens": 1000,
+      "outputTokens": 500,
+      "latencyNeed": "batch",
+      "needsImage": true,
+      "monthlyRuns": 30,
+      "position": { "部門": "人事", "拠点": "ニューヨーク", "職種区分": "管理職" }
+    }
+  ]
+}

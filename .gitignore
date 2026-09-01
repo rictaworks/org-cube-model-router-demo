@@ -51,6 +51,9 @@ node_modules/
 out/
 .vercel
 
+# --- Cloudflare Wrangler（ローカル開発時のD1状態等） ---
+.wrangler/
+
 # --- Python / FastAPI ---
 __pycache__/
 *.pyc

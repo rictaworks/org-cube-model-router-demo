@@ -8,6 +8,7 @@ import { AssignmentsPage } from './pages/AssignmentsPage.js';
 import { ChangeImpactsPage } from './pages/ChangeImpactsPage.js';
 import { DimensionsPage } from './pages/DimensionsPage.js';
 import { HomePage } from './pages/HomePage.js';
+import { LegalPage } from './pages/LegalPage.js';
 import { ModelsPage } from './pages/ModelsPage.js';
 import { OrgViewPage } from './pages/OrgViewPage.js';
 import { PoliciesPage } from './pages/PoliciesPage.js';
@@ -31,6 +32,7 @@ export function App(): ReactNode {
               <Route path="/assignments/:taskId" element={<TaskAssignmentDetailPage />} />
               <Route path={ROUTES.changeImpacts} element={<ChangeImpactsPage />} />
               <Route path={ROUTES.orgView} element={<OrgViewPage />} />
+              <Route path={ROUTES.legal} element={<LegalPage />} />
             </Route>
           </Routes>
         </AppDataProvider>

@@ -59,6 +59,55 @@ export const COMMON_MESSAGES = Object.freeze({
     '個人名・連絡先など個人を特定できる情報は入力しないでください。組織の役割や属性を表す名称のみをご入力ください。',
 });
 
+/**
+ * Ricta Works の全デモ共通UI（アンバーバナー・デモ一覧リンク・ご相談ボタン・
+ * legalページへのフッターリンク）の文言。内容は全デモ共通（demo-common-ui.md 参照）。
+ */
+export const DEMO_COMMON_MESSAGES = Object.freeze({
+  demoVersionBanner: 'これはデモ版です。データはサーバー再起動時にリセットされる場合があります。',
+  demoListLinkLabel: '← デモ一覧へ',
+  consultButtonLabel: 'ご相談はこちら',
+  footerLegalLinkLabel: '利用規約・免責事項・連絡先',
+  footerCopyright: '© 2026 Ricta Works',
+});
+
+/**
+ * /legal ページの文言。内容は全デモ共通（demo-common-ui.md 参照）。連絡先は
+ * CONTRIBUTING.md の「連絡先ルール」に従いメールアドレスのみ掲載し個人名は書かない。
+ */
+export const LEGAL_MESSAGES = Object.freeze({
+  title: '利用規約・免責事項・連絡先',
+  backToHomeLabel: 'ホームに戻る',
+  termsHeading: '利用規約',
+  termsItems: [
+    '本サービスはデモンストレーション目的のみで提供されます。商用利用・再配布は禁止します。',
+    'サービスの内容は予告なく変更・停止する場合があります。',
+    'セッションのデータは、前回のリセット日時がJST 03:00より前になった状態で本サービスへアクセスすると、そのタイミングで自動的に削除されます（requirements.md 4.8節）。',
+    '本サービスの利用に際し、本規約に同意したものとみなします。',
+  ],
+  disclaimerHeading: '免責事項',
+  disclaimerItems: [
+    '表示される組織次元・ポリシー・タスク・AIモデルのカタログはデモ用のサンプルであり、実在の組織・契約・料金を保証するものではありません。',
+    '本サービスが提示するモデル割当・根拠はルールベースの試算であり、実運用のAIモデル選定を保証するものではありません。',
+    '本サービスの利用により生じた損害について、Ricta Works は一切の責任を負いません。',
+    'サービスの可用性・正確性・継続性を保証しません。',
+  ],
+  contactHeading: '連絡先',
+  contactRows: [
+    { label: '屋号', value: 'Ricta Works' },
+    { label: '住所', value: '〒190-0022 東京都立川市錦町1丁目4-20 TSCビル5階' },
+    { label: '電話', value: '070-5148-0380' },
+  ],
+  contactEmailLabel: 'メール',
+  contactEmailValue: 'info@rictaworks.jp',
+  contactWebLabel: 'Web',
+  contactWebValue: 'https://rictaworks.jp',
+  contactXLabel: 'X',
+  contactXValue: '@rictaworks',
+  contactGithubLabel: 'GitHub',
+  contactGithubValue: 'github.com/rictaworks',
+});
+
 export const HOME_MESSAGES = Object.freeze({
   title: 'ホーム',
   description:

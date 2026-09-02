@@ -25,7 +25,27 @@ export const ROUTES = Object.freeze({
   assignmentDetail: (taskId: number): string => `/assignments/${taskId}`,
   changeImpacts: '/change-impacts',
   orgView: '/org-view',
+  legal: '/legal',
 } as const);
+
+/**
+ * Ricta Works の全デモ共通の外部リンク先（demo-common-ui.md 参照）。
+ * デモごとに値を変えない固定リンクのため、他の設定値と分けてここに集約する。
+ */
+export const DEMO_COMMON_LINKS = Object.freeze({
+  demoList: 'https://rictaworks.jp/#demos',
+  consult: 'https://rictaworks.jp/',
+});
+
+/** /legal ページの連絡先で使う外部リンク先。全デモ共通（demo-common-ui.md 参照）。 */
+export const RICTAWORKS_CONTACT_LINKS = Object.freeze({
+  web: 'https://rictaworks.jp',
+  x: 'https://x.com/rictaworks',
+  github: 'https://github.com/rictaworks',
+});
+
+/** GA4（Google Analytics 4）の測定ID。全デモ共通（demo-common-ui.md 参照）。 */
+export const GA4_MEASUREMENT_ID = 'G-C04W1XKS16';
 
 /**
  * 除外・警告理由コードのうち、ポリシー由来のものについて「その理由に関係しうる

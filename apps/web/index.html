@@ -12,5 +12,13 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <!-- GA4（全デモ共通の測定ID。demo-common-ui.md 参照） -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C04W1XKS16"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-C04W1XKS16');
+    </script>
   </body>
 </html>

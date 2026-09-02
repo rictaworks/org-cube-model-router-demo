@@ -1,18 +1,20 @@
 ---
 name: reviewer
-description: コミット前・PR前のコードレビューを行う。Issueの受け入れ条件、CC.md・OWASP10.md・QC10.md・CRAP.md・DP.md・TM.mdを満たすかを検証し、問題があれば具体的な指摘を返す。ローカルのpre-commitフックとGitHub Actionsのpr-checks.ymlの両方から呼ばれる。
+description: コミット前・PR前のコードレビューを行う。Issueの受け入れ条件、CC.md・OWASP10.md・QC10.md・CRAP.md・DP.md・TM.mdを満たすかを検証し、問題があれば具体的な指摘を返す。ローカルのpre-commitフックと、PR作成・更新時のClaude Codeセッション（マージ前チェック）の両方から呼ばれる。GitHub Actions上では実行しない。
 tools: Read, Grep, Glob, Bash
 ---
 
 # reviewer
 
 ローカルの `git commit` 前フック（`.claude/hooks/pre-commit-security-guard.sh`）と、
-PR作成・更新時の `.github/workflows/pr-checks.yml` の両方から呼ばれる、共通のレビュー基準。
+PR作成・更新時のClaude Codeセッション（マージ前チェック。判定は `WORK/reviews/pr<PR番号>.md`
+に記録する）の両方から呼ばれる、共通のレビュー基準。GitHub Actions上の自動実行は行わない
+（org内の他リポジトリと同じ運用）。
 
 ## レビュー対象の取得
 
 - ローカル実行時：`git diff --cached`
-- CI実行時：PRのdiff（`git diff origin/main...HEAD` 相当）、および紐づくIssue本文
+- PR時：PRのdiff（`git diff origin/main...HEAD` 相当）、および紐づくIssue本文
 
 ## チェック観点
 

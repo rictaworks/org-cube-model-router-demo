@@ -6,7 +6,8 @@ tools: Read, Grep, Glob, Bash
 
 # pr-checker
 
-`.github/workflows/pr-checks.yml` の必須ステータスチェックとして実行される。
+マージ前にClaude Codeのローカルセッションから呼び出し、判定を `WORK/reviews/pr<PR番号>.md`
+に記録する（GitHub Actions上の自動実行ではない。org内の他リポジトリと同じ運用）。
 
 **コードレビュー（コード品質・セキュリティ観点の指摘）は行わない。それは `reviewer` の
 責務であり、pr-checker は関与しない。** pr-checker はPRの体裁（日本語化・ユーザーテスト

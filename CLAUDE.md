@@ -52,8 +52,10 @@
   記録する。`.claude/settings.json` の `PreToolUse` hook
   （[.claude/hooks/pre-commit-security-guard.sh](./.claude/hooks/pre-commit-security-guard.sh)）が、
   この記録と一致しない `git commit` を自動的にブロックする。
-- マージ前には `.github/workflows/pr-checks.yml` により `reviewer` / `pr-checker` agent の
-  チェックが必須で走る。ローカルのレビューを省略する目的でこのチェックを回避しない。
+- マージ前には Claude Codeのローカルセッションで `reviewer` / `pr-checker` agent の
+  チェックを必須で実施し、判定を `WORK/reviews/pr<PR番号>.md` に記録する（org内の他
+  リポジトリと同じ運用。GitHub Actions上の自動実行ではない）。このレビューを省略する
+  目的でマージを急がない。
 
 ## ブランチ運用
 
@@ -74,15 +76,16 @@
 
 規模に応じて、以下の役割の subagent を `.claude/agents/` に用意する：
 director, project-manager, designer, debugger, tester, data-scientist, deployer, writer,
-service-manager（加えてフック・CIから呼ぶ reviewer, pr-checker）。各役割の詳細は
+service-manager（加えてローカルセッションから呼ぶ reviewer, pr-checker）。各役割の詳細は
 [CONTRIBUTING.md](./CONTRIBUTING.md) を参照。
 
 ## CI/CD
 
 - CI（lint・typecheck・test）は必須で `.github/workflows/ci.yml` により自動実行する。
 - CD（デプロイ）はこのリポジトリのCIには含めない。Claude Desktop側で設定・実行する。
-- マージ前チェック（`reviewer`・`pr-checker`）は `.github/workflows/pr-checks.yml` の
-  必須ステータスチェックとして実行する。
+- マージ前チェック（`reviewer`・`pr-checker`）は GitHub Actions ではなく、Claude Code の
+  ローカルセッションで実施し、判定を `WORK/reviews/` に記録する（org内の他リポジトリと
+  同じ運用）。
 
 ## ドキュメント管理
 

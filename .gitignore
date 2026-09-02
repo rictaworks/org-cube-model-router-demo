@@ -50,6 +50,7 @@ node_modules/
 .next/
 out/
 .vercel
+dist/
 
 # --- Cloudflare Wrangler（ローカル開発時のD1状態等） ---
 .wrangler/

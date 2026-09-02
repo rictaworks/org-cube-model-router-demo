@@ -55,6 +55,7 @@
 | 割当・根拠（固定割当を含む） | `/assignments/:taskId` | requirements.md 2章 F6・F7・4.3〜4.4・4.7・13.1節 |
 | 変更影響 | `/change-impacts` | requirements.md 2章 F8・4.6節 |
 | 組織ビュー | `/org-view` | requirements.md 2章 F9・13.2節 |
+| 利用規約・免責事項・連絡先 | `/legal` | 全デモ共通（.claude/agents/demo-common-ui.md 参照） |
 
 ## API一覧
 

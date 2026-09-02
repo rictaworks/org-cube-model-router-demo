@@ -7,8 +7,13 @@
   **プルリクエスト（PR）を作成**すること。`main` への直接pushは禁止する。
 - `src/**` を含まない変更（`SPEC/`・`TASKS/`・`README.md` などドキュメント類）は
   `main` への直接pushを許可する。ただし迷った場合はPRを作成する。
-- PRは `main` へのマージ前に、`.github/workflows/pr-checks.yml` による
-  `reviewer` / `pr-checker` agent のチェックを必須ステータスチェックとして通過させること。
+- PRは `main` へのマージ前に、Claude Codeのローカルセッションで `reviewer` /
+  `pr-checker` agent（[.claude/agents/reviewer.md](./.claude/agents/reviewer.md)・
+  [.claude/agents/pr-checker.md](./.claude/agents/pr-checker.md)）によるレビューを実施し、
+  判定を `WORK/reviews/pr<PR番号>.md` に記録すること（org内の他リポジトリと同じ運用。
+  GitHub Actions上でclaude-code-actionを用いた自動実行は行わない — 過去に
+  `.github/workflows/pr-checks.yml` として骨組みを置いていたが、認証手段が整備できず
+  一度も成立しなかったため `DELETE/` へ退避した）。
 
 ## TDD（厳守）
 
@@ -113,7 +118,7 @@
 
 ```
 issue → 実装（設定・コーディング） → セキュリティレビュー → add/commit/push
-  → reviewer & pr-checker（CI必須チェック） → merge → …（複数PRの蓄積）…
+  → reviewer & pr-checker（ローカルセッションで実施・WORK/reviews/に記録） → merge → …（複数PRの蓄積）…
   → code-review → audit & security-gate → release → report → user test
 ```
 

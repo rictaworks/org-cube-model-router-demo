@@ -9,10 +9,11 @@
 # * database_id はプレースホルダーであり、実デプロイ時に実際のD1データベースIDへ置き換える。
 
 name = "org-cube-model-router-demo-api"
+account_id = "9c5183bedab008ccef3581056752fa6f"
 main = "src/index.ts"
 compatibility_date = "2024-09-23"
 
 [[d1_databases]]
 binding = "DB"
 database_name = "org-cube-model-router-demo"
-database_id = "93065804-9980-439a-bc7b-33aafc36b4ea"
+database_id = "b15533af-6725-4975-a588-23019de26f3b"
